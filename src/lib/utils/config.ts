@@ -38,6 +38,8 @@ const getConfig: () => {
   awsSessionToken?: string; // Optional. Needed for temporary credentials
   awsS3BucketName?: string;
   awsS3CoreBucketName?: string;
+  awsS3Endpoint?: string;
+  awsS3ForcePathStyle?: boolean;
   fileStorageType?: string;
   gcpCloudStorageBucketName?: string;
   gcpCloudStorageCoreBucketName?: string;
@@ -100,6 +102,16 @@ const getConfig: () => {
       process.env.AWS_S3_BUCKET_NAME || 'YOUR_AWS_S3_BUCKET_NAME',
     awsS3CoreBucketName:
       process.env.AWS_S3_CORE_BUCKET_NAME || 'YOUR_AWS_S3_CORE_BUCKET_NAME',
+    awsS3Endpoint: process.env.AWS_S3_ENDPOINT,
+    awsS3ForcePathStyle:
+      process.env.AWS_S3_FORCE_PATH_STYLE !== undefined &&
+      process.env.AWS_S3_FORCE_PATH_STYLE !== ''
+        ? ['true', '1'].includes(
+            process.env.AWS_S3_FORCE_PATH_STYLE!.toLowerCase(),
+          )
+        : process.env.AWS_S3_ENDPOINT
+          ? true
+          : undefined,
   };
 };
 

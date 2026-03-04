@@ -26,6 +26,8 @@ if (config.awsAccessKeyId && config.awsSecretAccessKey) {
     accessKeyId: config.awsAccessKeyId,
     secretAccessKey: config.awsSecretAccessKey,
     ...(config.awsSessionToken && { sessionToken: config.awsSessionToken }),
+    ...(config.awsS3Endpoint && { endpoint: config.awsS3Endpoint }),
+    ...(config.awsS3ForcePathStyle && { forcePathStyle: config.awsS3ForcePathStyle }),
   };
 }
 
