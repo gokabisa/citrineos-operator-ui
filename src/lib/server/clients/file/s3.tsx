@@ -26,9 +26,12 @@ if (config.awsAccessKeyId && config.awsSecretAccessKey) {
     accessKeyId: config.awsAccessKeyId,
     secretAccessKey: config.awsSecretAccessKey,
     ...(config.awsSessionToken && { sessionToken: config.awsSessionToken }),
-    ...(config.awsS3Endpoint && { endpoint: config.awsS3Endpoint }),
-    ...(config.awsS3ForcePathStyle && { forcePathStyle: config.awsS3ForcePathStyle }),
   };
+}
+
+if (config.awsS3Endpoint) {
+  s3Config.endpoint = config.awsS3Endpoint;
+  s3Config.forcePathStyle = config.awsS3ForcePathStyle;
 }
 
 const s3 = new S3Client(s3Config);
