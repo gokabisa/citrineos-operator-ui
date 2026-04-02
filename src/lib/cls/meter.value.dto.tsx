@@ -12,6 +12,9 @@ import { MeasurandEnum, OCPP2_0_1 } from '@citrineos/base';
 export class MeterValueClass implements Partial<MeterValueDto> {}
 
 // todo share below code with @citrineos/base
+const isOverallPhase = (phase: string | undefined | null): boolean =>
+  !phase || phase === OCPP2_0_1.PhaseEnumType.N;
+
 const TWO_HOURS = 60 * 60 * 2;
 
 const validContexts = new Set([
@@ -77,7 +80,7 @@ export const findOverallValue = (
   if (measurandSampledValues.length === 0) {
     return undefined;
   }
-  let summedPhasesSampledValue = measurandSampledValues.find((sv) => !sv.phase);
+  let summedPhasesSampledValue = measurandSampledValues.find((sv) => isOverallPhase(sv.phase));
   if (!summedPhasesSampledValue) {
     // Manually sum all phases if no summed phase is found
     const summablePhases = new Set<string>([
