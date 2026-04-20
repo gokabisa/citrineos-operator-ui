@@ -20,6 +20,7 @@ const getConfig: () => {
   tenantId: string;
   apiUrl: string;
   wsUrl: string;
+  bannerMessage?: string;
   citrineCoreUrl?: string;
   fileServer?: string;
   logoUrl?: string;
@@ -43,6 +44,7 @@ const getConfig: () => {
   fileStorageType?: string;
   gcpCloudStorageBucketName?: string;
   gcpCloudStorageCoreBucketName?: string;
+  helpVideoUrl?: string;
 } = () => {
   const authProviderResult = AuthProviderTypeEnum.safeParse(
     process.env.NEXT_PUBLIC_AUTH_PROVIDER,
@@ -53,6 +55,7 @@ const getConfig: () => {
 
   return {
     appName: process.env.NEXT_PUBLIC_APP_NAME || 'CitrineOS',
+    bannerMessage: process.env.NEXT_PUBLIC_BANNER_MESSAGE,
     googleMapsApiKey:
       process.env.GOOGLE_MAPS_API_KEY || 'YOUR_GOOGLE_MAPS_API_KEY',
     googleMapsAddressApiKey:
@@ -112,6 +115,8 @@ const getConfig: () => {
         : process.env.AWS_S3_ENDPOINT
           ? true
           : undefined,
+    helpVideoUrl:
+      process.env.NEXT_PUBLIC_HELP_VIDEO_URL || '/videos/help-video.mp4', // Default local path; override with env var for external URLs
   };
 };
 
